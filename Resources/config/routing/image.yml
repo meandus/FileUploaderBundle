@@ -1,0 +1,4 @@
+qoop_lmao_file_uploader_thumbnail:
+    pattern: /thumb/{id}/
+    defaults:
+        _controller: QoopLmaoFileUploaderBundle:image:thumbnail

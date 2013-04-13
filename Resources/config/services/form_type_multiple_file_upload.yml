@@ -1,0 +1,16 @@
+parameters:
+    qoop_lmao_file_uploader.multiple_file_upload.form.type_class: QoopLmao\FileUploaderBundle\Form\Type\MultipleFileUploadFormType
+    qoop_lmao_file_uploader.multiple_file_to_array.transformer_class: QoopLmao\FileUploaderBundle\Form\DataTransformer\MultipleFileToUploadArrayTransformer
+
+services:
+    qoop_lmao_file_uploader.multiple_file_upload.form.type:
+        class: '%qoop_lmao_file_uploader.multiple_file_upload.form.type_class%'
+        tags:
+            - { name: form.type, alias: qoop_lmao_file_uploader_file_upload }
+        arguments:
+            multipleFileTransformer: '@qoop_lmao_file_uploader.multiple_file_to_array.transformer'
+
+    qoop_lmao_file_uploader.multiple_file_to_array.transformer:
+        class: '%qoop_lmao_file_uploader.multiple_file_to_array.transformer_class%'
+        arguments:
+            uploadManager: '@qoop_lmao_file_uploader.upload.manager'

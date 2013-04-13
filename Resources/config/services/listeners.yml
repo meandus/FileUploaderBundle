@@ -1,0 +1,26 @@
+parameters:
+    qoop_lmao_file_uploader.json_upload.listener_class: QoopLmao\FileUploaderBundle\Event\Listener\JsonUploadResponseListener
+    qoop_lmao_file_uploader.delete_redirect.listener_class: QoopLmao\FileUploaderBundle\Event\Listener\DeleteRedirectListener
+    qoop_lmao_file_uploader.failed_upload_redirect.listener_class: QoopLmao\FileUploaderBundle\Event\Listener\FailedUploadRedirectListener
+
+services:
+    qoop_lmao_file_uploader.json_upload.listener:
+        class: '%qoop_lmao_file_uploader.json_upload.listener_class%'
+        arguments:
+            router: '@router'
+            generatorAdapter: '@qoop_lmao_file_uploader.generator.adapter'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    qoop_lmao_file_uploader.delete_redirect.listener:
+        class: '%qoop_lmao_file_uploader.delete_redirect.listener_class%'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    qoop_lmao_file_uploader.failed_upload_redirect.listener:
+        class: '%qoop_lmao_file_uploader.failed_upload_redirect.listener_class%'
+        arguments:
+            router: '@router'
+            session: '@session'
+        tags:
+            - { name: kernel.event_subscriber }

@@ -1,0 +1,7 @@
+qoop_lmao_file_uploader_upload:
+    resource: "@QoopLmaoFileUploaderBundle/Resources/config/routing/upload.yml"
+    prefix:   /
+
+qoop_lmao_file_uploader_image:
+    resource: "@QoopLmaoFileUploaderBundle/Resources/config/routing/image.yml"
+    prefix:   /image/

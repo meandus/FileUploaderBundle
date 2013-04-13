@@ -1,0 +1,63 @@
+QoopLmao\FileUploaderBundle\Entity\Upload:
+    type: mappedSuperclass
+    fields:
+        status:
+            type: string
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        info:
+            type: string
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        mimetype:
+            type: string
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        filesize:
+            type: string
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        originalFilename:
+            type: string
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        storedFilename:
+            type: string
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        extension:
+            type: string
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        datecreated:
+            type: datetime
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+        dateupdated:
+            type: datetime
+            precision: 0
+            scale: 0
+            unique: false
+            nullable: false
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        preUpdate: [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

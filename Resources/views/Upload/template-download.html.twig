@@ -1,0 +1,21 @@
+{% if files is defined %}
+    {% for file in files %}
+        <tr class="template-download sfade">
+            <td class="preview">
+                <a href="{{ file.webPath }}" title="{{ file.originalFilename }}" data-gallery="gallery" download="{{ file.originalFilename }}"><img src="{{ path('qoop_lmao_file_uploader_thumbnail', {'id': file.id}) }}"></a>
+            </td>
+            <td class="name">
+                <a href="{{ file.webPath }}" title="{{ file.originalFilename }}" data-gallery="" download="{{ file.originalFilename }}">{{ file.originalFilename }}</a>
+            </td>
+            <td class="size"><span>{{ file.filesize }}</span></td>
+            <td colspan="2"></td>
+            <td>
+                <button name="file-delete" value="{{ path('qoop_lmao_file_uploader_delete', {'id': file.id}) }}" class="btn btn-danger delete" data-type="DELETE" data-url="{{ path('qoop_lmao_file_uploader_delete', {'info': 'all', 'id': file.id}) }}">
+                    <i class="icon-trash icon-white"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

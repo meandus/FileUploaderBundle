@@ -1,0 +1,29 @@
+qoop_lmao_file_uploader_list:
+    pattern:  /list/
+    defaults:
+        _controller: QoopLmaoFileUploaderBundle:Upload:list
+
+qoop_lmao_file_uploader_upload:
+    pattern:  /upload/
+    defaults:
+        _controller: QoopLmaoFileUploaderBundle:Upload:upload
+        json: false
+
+qoop_lmao_file_uploader_upload_json:
+    pattern:  /json/upload/
+    defaults:
+        _controller: QoopLmaoFileUploaderBundle:Upload:upload
+        json: true
+
+qoop_lmao_file_uploader_delete:
+    pattern: /delete/{id}/
+    defaults:
+        _controller: QoopLmaoFileUploaderBundle:Upload:delete
+        json: false
+
+qoop_lmao_file_uploader_delete_json:
+    pattern: /json/delete/{id}/
+    defaults:
+        _controller: QoopLmaoFileUploaderBundle:Upload:delete
+        json: true
+        info: none

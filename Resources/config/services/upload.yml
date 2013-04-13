@@ -1,0 +1,26 @@
+parameters:
+    #qoop_lmao_insurance_policy.agent.entity_class: Asurit\SupercoverPolicyBundle\Entity\Agent
+    #qoop_lmao_insurance_policy.agent.manager_class: QoopLmao\InsurancePolicyBundle\Model\Manager\AgentManager
+    qoop_lmao_file_uploader.upload.form.type_class: QoopLmao\FileUploaderBundle\Form\Type\UploadType
+
+services:
+    qoop_lmao_file_uploader.upload.manager.default:
+        class: '%qoop_lmao_file_uploader.upload.manager_class%'
+        arguments:
+            entityManager: '@doctrine.orm.entity_manager'
+            class: '%qoop_lmao_file_uploader.upload.entity_class%'
+
+    qoop_lmao_file_uploader.upload.form.type:
+        class: '%qoop_lmao_file_uploader.upload.form.type_class%'
+        arguments:
+            class: '%qoop_lmao_file_uploader.upload.entity_class%'
+        tags:
+            - { name: form.type, alias: qoop_lmao_file_uploader_upload }
+
+    qoop_lmao_file_uploader.upload.form.factory:
+        class: QoopLmao\FileUploaderBundle\Form\Factory\Factory
+        arguments:
+            formFactory: '@form.factory'
+            formType: '%qoop_lmao_file_uploader.upload.form.type%'
+            formName: '%qoop_lmao_file_uploader.upload.form.name%'
+            validateGroups: '%qoop_lmao_file_uploader.upload.form.validation_groups%'

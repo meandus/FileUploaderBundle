@@ -1,0 +1,22 @@
+parameters:
+    qoop_lmao_file_uploader.generator.adapter_class: QoopLmao\FileUploaderBundle\Generator\GeneratorAdapter
+#    qoop_lmao_file_uploader.generator.factory_class: QoopLmao\FileUploaderBundle\Generator\GeneratorFactory
+    qoop_lmao_file_uploader.generator.liip_imagine_class: QoopLmao\FileUploaderBundle\Generator\GeneratorLiipImagine
+    qoop_lmao_file_uploader.generator.null_class: QoopLmao\FileUploaderBundle\Generator\GeneratorNull
+
+services:
+    qoop_lmao_file_uploader.generator.adapter:
+        class: '%qoop_lmao_file_uploader.generator.adapter_class%'
+        arguments:
+            generator: '@qoop_lmao_file_uploader.generator'
+
+    qoop_lmao_file_uploader.generator.liip_imagine:
+        class: '%qoop_lmao_file_uploader.generator.liip_imagine_class%'
+        arguments:
+            request: '@request'
+            router: '@router'
+            liip_imagine: '@liip_imagine.controller'
+            thumb_filter: 'blueimp_thumb'
+
+    qoop_lmao_file_uploader.generator.null:
+        class: '%qoop_lmao_file_uploader.generator.null_class%'

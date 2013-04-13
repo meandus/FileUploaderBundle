@@ -1,0 +1,125 @@
+parameters:
+    qoop_lmao.file_uploader.file_upload_entity.class: QoopLmao\FileUploaderBundle\Entity\FileUpload
+    qoop_lmao.file_uploader.upload_entity.class_default: QoopLmao\FileUploaderBundle\Entity\Upload
+    qoop_lmao.file_uploader.upload_type.class: QoopLmao\FileUploaderBundle\Form\Type\FileUploadFormType
+    qoop_lmao.file_uploader.upload_handler.class: QoopLmao\FileUploaderBundle\Form\Handler\FileUploadFormHandler
+    qoop_lmao.file_uploader.upload_manager.class: QoopLmao\FileUploaderBundle\Entity\UploadManager
+
+
+    qoop_lmao.file_uploader.web_base.path: "/uploads"
+    qoop_lmao.file_uploader.allowed_extensions:
+        # Mime types are just for documentation's sake.
+        # BlueImp filters by supplied extension. No checking of the
+        # actual file contents is done. If your mime types are
+        # configured correctly in Apache the browser will have the
+        # correct expectations for each file
+        - gif #image/gif
+        - png #image/png
+        - jpg #image/jpeg
+        - jpeg #image/jpeg
+        - pdf #application/pdf
+        - mp3 #audio/mpeg
+        - xls #application/vnd.ms-excel
+        - ppt #application/vnd.ms-powerpoint
+        - doc #application/msword
+        - pptx #application/vnd.openxmlformats-officedocument.presentationml.presentation
+        - sldx #application/vnd.openxmlformats-officedocument.presentationml.slide
+        - ppsx #application/vnd.openxmlformats-officedocument.presentationml.slideshow
+        - potx #application/vnd.openxmlformats-officedocument.presentationml.template
+        - xlsx #application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        - xltx #application/vnd.openxmlformats-officedocument.spreadsheetml.template
+        - docx #application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        - dotx #application/vnd.openxmlformats-officedocument.wordprocessingml.template
+        - txt #text/plain
+        - rtf #text/rtf
+
+    # Add image to provided foldername.
+    # So if folder == 'main' && file_uploader.web_base_path == '/uploads',
+    # true == base folder is '/uploads/main'
+    # false == base folder is '/uploads'
+    #
+    #A folder is need though as it will be added to the database to be used as a gallery if needed
+    qoop_lmao.file_uploader.use_folder: false
+
+    # Folder where originals are uploaded. This is the only folder populated for
+    # uploads that are not images
+    qoop_lmao.file_uploader.originals_folder: originals
+
+services:
+    qoop_lmao.file_uploader.upload_type:
+        class: '%qoop_lmao.file_uploader.upload_type.class%'
+        tags:
+            - { name: form.type, alias: qoop_lmao-file_upload }
+
+    qoop_lmao.file_uploader.upload_form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments: [qoop_lmao-file_upload, "@qoop_lmao.file_uploader.upload_type"]
+
+    qoop_lmao.file_uploader.upload_handler:
+        class: '%qoop_lmao.file_uploader.upload_handler.class%'
+        scope: request
+        arguments:
+            form: '@qoop_lmao.file_uploader.upload_form'
+            request: '@request'
+            upload: '@qoop_lmao.file_uploader.upload_entity'
+            objectManager: '@qoop_lmao.file_uploader.entity_manager'
+
+    qoop_lmao.file_uploader.entity_manager:
+        class: Doctrine\ORM\EntityManager
+        factory_service: doctrine
+        factory_method: getManager
+        public: false
+
+    qoop_lmao.file_uploader.upload_entity:
+        class: '%qoop_lmao.file_uploader.upload_entity.class%'
+        calls:
+            - [ setWebbase, [ '%qoop_lmao.file_uploader.web_base.path%' ] ]
+            - [ setOriginalsFolder, [ '%qoop_lmao.file_uploader.originals_folder%' ] ]
+            - [ setAllowedExtensions, [ '%qoop_lmao.file_uploader.allowed_extensions%' ] ]
+
+    qoop_lmao.file_uploader.upload_manager:
+        class: '%qoop_lmao.file_uploader.upload_manager.class%'
+        arguments:
+            objectManager: '@qoop_lmao.file_uploader.entity_manager'
+            class: '%qoop_lmao.file_uploader.upload_entity.class%'
+
+#    qoop_lmao.file_uploader:
+#        class: QoopLmao\FileUploaderBundle\Services\FileUploader
+#        arguments:
+#            options:
+#                file_manager: '@qoop_lmao.file_uploader_file_manager'
+#        scope: request
+
+    # You usually won't need this sub-service directly,
+    # however you can access it from a command, which is
+    # convenient if you need to delete files relating to
+    # something in a command context
+#    qoop_lmao.file_uploader_file_manager:
+#        class: QoopLmao\FileUploaderBundle\Services\FileManager
+#        arguments:
+#            options:
+#                file_base_path: '%file_uploader.file_base_path%'
+#                web_base_path: '%file_uploader.web_base_path%'
+#                allowed_extensions: '%file_uploader.allowed_extensions%'
+#                use_folder: '%file_uploader.use_folder%'
+#                sizes: '%file_uploader.sizes%'
+#                originals: '%file_uploader.originals_folder%'
+#                upload_handler: '%file_uploader.upload_handler%'
+#                filename_edit: '%file_uploader.filename_edit%'
+#                filename_edit_pos: '%file_uploader.filename_edit_pos%'
+#                filename_edit_string: '%file_uploader.filename_edit_string%'
+#                filename_edit_divider: '%file_uploader.filename_edit_divider%'
+#            objectManager: '@qoop_lmao.upload.entity_manager'
+#            class: '@qoop_lmao.upload'
+#            request: '@request'
+
+#    qoop_lmao.upload:
+#        class: '%qoop_lmao.upload_class%'
+
+#    qoop_lmao.upload.entity_manager:
+#        class: Doctrine\ORM\EntityManager
+#        factory_service: doctrine
+#        factory_method: getManager
+#        public: false

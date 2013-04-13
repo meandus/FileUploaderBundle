@@ -1,0 +1,12 @@
+{% set route = app.request.get('_route') %}
+{% set route_params = app.request.get('_route_params') %}
+{% set info = app.request.get('info', 'upload') %}
+{% if info == 'all' %}
+    {% set info = 'upload' %}
+{% endif %}
+
+<form method="POST" action="{{ path('qoop_lmao_file_uploader_upload', {'info': info}) }}" {{ form_enctype(form) }}>
+    {# form_row(form.files, { 'full_name': form.files.get('full_name') ~ '[]' }) #}
+    {# form_rest(form) #}
+    <input type="submit" value="Upload" />
+</form>

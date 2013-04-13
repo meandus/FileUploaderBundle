@@ -1,0 +1,6 @@
+{% extends "QoopLmaoFileUploaderBundle::layout.html.twig" %}
+
+{% block body %}
+    {% include "QoopLmaoFileUploaderBundle:Upload:list_content.html.twig" %}
+    {% include "QoopLmaoFileUploaderBundle:Upload:blueimp.html.twig" with {'files': files } %}
+{% endblock body %}
