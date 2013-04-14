@@ -1,0 +1,24 @@
+{
+    "name": "qooplmao/file-uploader-bundle",
+    "type": "symfony-bundle",
+    "description": "This bundle provides multiple file upload capabilities to Symfony2",
+    "keywords": ["upload", "file", "uploader", "multiple file upload", "qooplmao"],
+    "homepage": "https://github.com/qooplmao/FileUploaderBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "qooplmao",
+            "email": "godsmurf@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/symfony": "2.1.*",
+        "doctrine/doctrine-bundle": "*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "QoopLmao\\FileUploaderBundle": "" }
+    },
+    "target-dir": "QoopLmao/FileUploaderBundle"
+}
