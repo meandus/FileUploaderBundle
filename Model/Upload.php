@@ -70,6 +70,16 @@ abstract class Upload implements UploadInterface
     }
 
     /**
+     * Get id
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set file
      *
      * @param UploadedFile $file
