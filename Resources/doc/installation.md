@@ -4,7 +4,7 @@
 
 Installing this bundle can be done through these simple steps:
 
-1. Add the bundle to your project as a composer dependency:
+Step 1. Add the bundle to your project as a composer dependency:
 ``` javascript
 // composer.json
 {
@@ -16,30 +16,31 @@ Installing this bundle can be done through these simple steps:
 }
 ```
 
-2. Update your composer installation:
+Step 2. Update your composer installation:
 ``` shell
 php composer.phar update qooplmao/file-uploader-bundle
 ````
 
-3. Add the bundle to your application kernel:
+Step 3. Add the bundle to your application kernel:
 ``` php
 // application/ApplicationKernel.php
 public function registerBundles()
 {
-	// ...
-	$bundle = array(
-		// ...
-        new new QoopLmao\FileUploaderBundle\QoopLmaoFileUploaderBundle(),
-	);
-    // ...
+        // ...
+        $bundle = array(
+            // ...
+            new new QoopLmao\FileUploaderBundle\QoopLmaoFileUploaderBundle(),
+        );
+        // ...
 
-    return $bundles;
+        return $bundles;
 }
 ```
 
-4. Create your Upload class (doctrine):
+Step 4. Create your Upload class (doctrine):
 ``` php
 <?php
+// src/Acme/FileUploaderBundle/Entity/Upload
 
 namespace Acme\FileUploaderBundle\Entity;
 
@@ -65,28 +66,23 @@ class Upload extends BaseUpload
         parent::__construct();
         // your own logic
     }
-
-    public function getId()
-    {
-        return $this->id;
-    }
 }
 ```
 
-5. Configure the QoopLmaoFileUploaderBundle:
+Step 5. Configure the QoopLmaoFileUploaderBundle:
 ``` yaml
 qoop_lmao_file_uploader:
     upload_class: Acme\FileUploaderBundle\Entity\Upload
 ```
 
-6. Import the QoopLmaoFileUploaderBundle routing:
+Step 6. Import the QoopLmaoFileUploaderBundle routing:
 ``` yaml
 qoop_lmao_file_uploader:
     resource: "@QoopLmaoFileUploaderBundle/Resources/config/routing.yml"
     prefix:   /uploader/
 ```
 
-7. Update the database schema:
+Step 7. Update the database schema:
 ``` shell
 app/console doctrine:schema:update --force
 ```
