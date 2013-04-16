@@ -13,7 +13,7 @@ services:
     qoop_lmao_file_uploader.generator.liip_imagine:
         class: '%qoop_lmao_file_uploader.generator.liip_imagine_class%'
         arguments:
-            request: '@request'
+            request: '@request='
             router: '@router'
             liip_imagine: '@liip_imagine.controller'
             thumb_filter: 'blueimp_thumb'
