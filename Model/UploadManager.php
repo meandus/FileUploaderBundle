@@ -2,6 +2,7 @@
 
 namespace QoopLmao\FileUploaderBundle\Model;
 
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use QoopLmao\FileUploaderBundle\Model\UploadInterface;
 
@@ -102,9 +103,9 @@ class UploadManager implements UploadManagerInterface
         return $qb;
     }
 
-    public function findUploadById($id)
+    public function findUploadById($id, $lockMode = LockMode::NONE, $lockVersion = null)
     {
-        return $this->repository->find($id);
+        return $this->repository->find($id, $lockMode, $lockVersion);
     }
 
     public function getUpload($id)
