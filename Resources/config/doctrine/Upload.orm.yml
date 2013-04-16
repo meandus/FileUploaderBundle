@@ -7,12 +7,6 @@ QoopLmao\FileUploaderBundle\Entity\Upload:
             scale: 0
             unique: false
             nullable: false
-        info:
-            type: string
-            precision: 0
-            scale: 0
-            unique: false
-            nullable: false
         mimetype:
             type: string
             precision: 0
