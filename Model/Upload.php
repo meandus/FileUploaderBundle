@@ -27,11 +27,6 @@ abstract class Upload implements UploadInterface
     /**
      * @var string
      */
-    protected $info;
-
-    /**
-     * @var string
-     */
     protected $mimetype;
 
     /**
@@ -124,29 +119,6 @@ abstract class Upload implements UploadInterface
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set info
-     *
-     * @param $info
-     * @return Upload
-     */
-    public function setInfo($info)
-    {
-        $this->info = $info;
-
-        return $this;
-    }
-
-    /**
-     * Get info
-     *
-     * @return string
-     */
-    public function getInfo()
-    {
-        return $this->info;
     }
 
     /**
