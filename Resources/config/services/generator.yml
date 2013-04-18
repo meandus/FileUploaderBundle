@@ -15,8 +15,8 @@ services:
         arguments:
             request: '@request='
             router: '@router'
-            liip_imagine: '?@liip_imagine.controller'
-            thumb_filter: '?blueimp_thumb'
+            liip_imagine: '@?liip_imagine.controller'
+            thumb_filter: 'blueimp_thumb'
 
     qoop_lmao_file_uploader.generator.null:
         class: '%qoop_lmao_file_uploader.generator.null_class%'
