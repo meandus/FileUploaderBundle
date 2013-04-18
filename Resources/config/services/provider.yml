@@ -1,0 +1,8 @@
+parameters:
+    qoop_lmao_file_uploader.user.provider_class: QoopLmao\FileUploaderBundle\Provider\UserProvider
+
+services:
+    qoop_lmao_file_uploader.user.provider:
+        class: %qoop_lmao_file_uploader.user.provider_class%
+        arguments:
+            securityContext: @security.context

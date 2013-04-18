@@ -30,6 +30,7 @@ class QoopLmaoFileUploaderExtension extends Extension
         $this->loadGeneratorBlock($config, $container, $loader);
 
         $loader->load('services/listeners.yml');
+        $loader->load('services/provider.yml');
     }
 
     private function loadClasses(array $config, ContainerBuilder $container, YamlFileLoader $loader)
