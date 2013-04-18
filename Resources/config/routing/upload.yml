@@ -31,4 +31,3 @@ qoop_lmao_file_uploader_delete_json:
     defaults:
         _controller: QoopLmaoFileUploaderBundle:Upload:delete
         json: true
-        info: none
