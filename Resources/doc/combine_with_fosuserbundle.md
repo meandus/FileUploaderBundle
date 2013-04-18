@@ -30,7 +30,7 @@ class User extends BaseUser implements QoopLmaoFileUploaderUserInterface
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Access\FileUploaderBundle\Entity\Upload", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="\Acme\FileUploaderBundle\Entity\Upload", mappedBy="user")
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
