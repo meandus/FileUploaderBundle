@@ -11,7 +11,7 @@
             <td class="size"><span>{{ '%.2f'|format(file.filesize / 1000) }} KB</span></td>
             <td colspan="2"></td>
             <td>
-                <button name="file-delete" value="{{ path('qoop_lmao_file_uploader_delete', {'id': file.id}) }}" class="btn btn-danger delete" data-type="DELETE" data-url="{{ path('qoop_lmao_file_uploader_delete', {'id': file.id}) }}">
+                <button name="file-delete" value="{{ path('qoop_lmao_file_uploader_delete', {'id': file.id }) }}" class="btn btn-danger delete" data-type="DELETE" data-url="{{ path('qoop_lmao_file_uploader_delete_json', {'id': file.id }) }}">
                     <i class="icon-trash icon-white"></i>
                     <span>Delete</span>
                 </button>
