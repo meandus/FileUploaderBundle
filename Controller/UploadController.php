@@ -26,7 +26,7 @@ class UploadController extends ContainerAware
         $route_reg = $request->get('route_reg') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload');
         $route_json = $request->get('route_json') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload_json');
 
-        return $this->container->get('templating')->renderResponse('QoopLmaoFileUploaderBundle:Upload:blueimp.html.twig', array(
+        return $this->container->get('templating')->renderResponse('QoopLmaoFileUploaderBundle:Upload:form.html.twig', array(
             'form' => $form->createView(),
             'route_reg' => $route_reg,
             'route_json' => $route_json,
@@ -40,8 +40,13 @@ class UploadController extends ContainerAware
 
         $uploads = $uploadManager->findAllUploads();
 
+        $route_reg = $request->get('route_reg') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload');
+        $route_json = $request->get('route_json') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload_json');
+
         return $this->container->get('templating')->renderResponse('QoopLmaoFileUploaderBundle:Upload:list.html.twig', array(
             'files' => $uploads,
+            'route_reg' => $route_reg,
+            'route_json' => $route_json,
         ));
     }
 
