@@ -28,10 +28,18 @@ class JsonUploadResponseListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            QoopLmaoFileUploaderEvents::UPLOAD_SUCCESS => 'onFileUploadSuccess',
-            QoopLmaoFileUploaderEvents::UPLOAD_COMPLETED => 'onFileUploadCompleted',
-            QoopLmaoFileUploaderEvents::UPLOAD_FAILED => 'onFileUploadFailed',
-            QoopLmaoFileUploaderEvents::DELETE_COMPLETED => 'onFileDeleteCompleted',
+            QoopLmaoFileUploaderEvents::UPLOAD_SUCCESS => array(
+                array('onFileUploadSuccess', 20),
+            ),
+            QoopLmaoFileUploaderEvents::UPLOAD_COMPLETED => array(
+                array('onFileUploadCompleted', 50),
+            ),
+            QoopLmaoFileUploaderEvents::UPLOAD_FAILED => array(
+                array('onFileUploadFailed', 20),
+            ),
+            QoopLmaoFileUploaderEvents::DELETE_COMPLETED => array(
+                array('onFileDeleteCompleted', 50),
+            ),
         );
     }
 

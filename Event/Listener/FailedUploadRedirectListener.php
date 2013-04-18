@@ -25,7 +25,9 @@ class FailedUploadRedirectListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            QoopLmaoFileUploaderEvents::UPLOAD_INITIALIZE => 'onFileUploadInitialize',
+            QoopLmaoFileUploaderEvents::UPLOAD_INITIALIZE => array(
+                array('onFileUploadInitialize', 50),
+            ),
         );
     }
 
