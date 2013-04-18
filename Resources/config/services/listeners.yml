@@ -3,6 +3,7 @@ parameters:
     qoop_lmao_file_uploader.delete_redirect.listener_class: QoopLmao\FileUploaderBundle\Event\Listener\DeleteRedirectListener
     qoop_lmao_file_uploader.failed_upload_redirect.listener_class: QoopLmao\FileUploaderBundle\Event\Listener\FailedUploadRedirectListener
     qoop_lmao_file_uploader.add_user.listener_class: QoopLmao\FileUploaderBundle\Event\Listener\AddUserListener
+    qoop_lmao_file_uploader.entity_post_load.listener_class: QoopLmao\FileUploaderBundle\Event\Listener\EntityPostLoadListener
 
 services:
     qoop_lmao_file_uploader.json_upload.listener:
@@ -33,3 +34,10 @@ services:
             addUser: %qoop_lmao_file_uploader.add_user%
         tags:
             - { name: kernel.event_subscriber }
+
+    qoop_lmao_file_uploader.entity_post_load.listener:
+        class: %qoop_lmao_file_uploader.entity_post_load.listener_class%
+        arguments:
+            webroot: %kernel.root_dir%/../web/
+        tags:
+            - { name: doctrine.event_subscriber }
