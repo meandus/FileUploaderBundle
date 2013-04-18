@@ -16,15 +16,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UploadController extends ContainerAware
 {
-    public function formAction()
+    public function formAction(Request $request)
     {
         /** @var $formFactory \QoopLmao\FileUploaderBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('qoop_lmao_file_uploader.upload.form.factory');
 
         $form = $formFactory->createForm();
 
-        return $this->container->get('templating')->renderResponse('QoopLmaoFileUploaderBundle:Upload:form.html.twig', array(
+        $route_reg = $request->get('route_reg') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload');
+        $route_json = $request->get('route_json') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload_json');
+
+        return $this->container->get('templating')->renderResponse('QoopLmaoFileUploaderBundle:Upload:blueimp.html.twig', array(
             'form' => $form->createView(),
+            'route_reg' => $route_reg,
+            'route_json' => $route_json,
         ));
     }
 
