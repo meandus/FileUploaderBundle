@@ -31,6 +31,8 @@ class QoopLmaoFileUploaderExtension extends Extension
 
         $loader->load('services/listeners.yml');
         $loader->load('services/provider.yml');
+
+        $container->setParameter('qoop_lmao_file_uploader.add_user', !$config['add_user'] ? false : true );
     }
 
     private function loadClasses(array $config, ContainerBuilder $container, YamlFileLoader $loader)

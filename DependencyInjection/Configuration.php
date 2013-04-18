@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('generator')->defaultValue('null')->cannotBeEmpty()->end()
                 ->scalarNode('upload_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('add_user')->defaultValue(false)->cannotBeEmpty()->end()
                 ->scalarNode('upload_manager_class')->defaultValue('QoopLmao\FileUploaderBundle\Model\UploadManager')->cannotBeEmpty()->end()
                 ->arrayNode('upload')
                     ->addDefaultsIfNotSet()
