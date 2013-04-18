@@ -4,26 +4,10 @@
 
 Combining this bundle with FOSUserBundle can be done through these simple steps:
 
-Step 1. Update your User class:
+Step 1. Update your User concrete class:
 
-Forexample if you are using ``Acme\UserBundle\Entity\User.php``
-``` php
-// src/Acme/UserBundle/Entity/User.php
-
-use FOS\UserBundle\Entity\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
-use QoopLmao\FileUploaderBundle\Model\UserInterface as QoopLmaoFileUploaderUserInterface;
-
-/**
- * @ORM\Entity
- */
-class User extends BaseUser implements QoopLmaoFileUploaderUserInterface
-{
-    // your code here
-}
-```
-
-Step 2. Update your User concrete class:
+For example if you are using ``Acme\UserBundle\Entity\User.php``.
+Add QoopLmaoFileUploaderInterface and relationship between Upload and User (protected $uploads, addUpload, removeUpload and getUploads).
 ``` php
 // src/Acme/UserBundle/Entity/User.php
 
@@ -57,9 +41,8 @@ class User extends BaseUser implements QoopLmaoFileUploaderUserInterface
         parent::__construct();
     }
 
-
     /**
-     * Add gallery_cover_images
+     * Add upload
      *
      * @param \Acme\FileUploaderBundle\Entity\Upload $upload
      * @return User
@@ -76,7 +59,7 @@ class User extends BaseUser implements QoopLmaoFileUploaderUserInterface
      *
      * @param \Acme\FileUploaderBundle\Entity\Upload $upload
      */
-    public function removeUpload(\Acme\FileUploaderBundle\Entity\Upload $upload)
+    public function removeUploads(\Acme\FileUploaderBundle\Entity\Upload $upload)
     {
         $this->uploads->removeElement($upload);
     }
@@ -90,10 +73,12 @@ class User extends BaseUser implements QoopLmaoFileUploaderUserInterface
     {
         return $this->uploads;
     }
+
+    // your code here
 }
 ````
 
-Step 3. Update your Upload concrete class:
+Step 2. Update your Upload concrete class:
 ``` php
 // src/Acme/FileUploaderBundle/Entity/Upload.php
 
@@ -150,7 +135,7 @@ class Upload extends BaseUpload
 }
 ```
 
-Step 4. Update mapping (and rename as necessary):
+Step 3. Update mapping (and rename as necessary):
 ``` shell
 app/console doctrine:mapping:convert --namespace="Acme\FileUploaderBundle" yml
                                                         src/Acme/FileUploaderBundle/Resources/config/doctrine
@@ -158,7 +143,7 @@ app/console doctrine:mapping:convert --namespace="Acme\UserBundle" yml
                                                         src/Acme/UserBundle/Resources/config/doctrine
 ```
 
-Step 5. Update the database schema:
+Step 4. Update the database schema:
 ``` shell
 app/console doctrine:schema:update --force
 ```
