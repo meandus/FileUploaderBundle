@@ -76,7 +76,7 @@ class User extends BaseUser implements QoopLmaoFileUploaderUserInterface
      *
      * @param \Acme\FileUploaderBundle\Entity\Upload $upload
      */
-    public function removeUploads(\Acme\FileUploaderBundle\Entity\Upload $upload)
+    public function removeUpload(\Acme\FileUploaderBundle\Entity\Upload $upload)
     {
         $this->uploads->removeElement($upload);
     }
@@ -150,10 +150,12 @@ class Upload extends BaseUpload
 }
 ```
 
-Step 4. Update mapping:
+Step 4. Update mapping (and rename as necessary):
 ``` shell
-app/console doctrine:mapping:convert --namespace="Acme\FileUploaderBundle" yml src/Acme/FileUploaderBundle/Resources/config/doctrine
-app/console doctrine:mapping:convert --namespace="Acme\UserBundle" yml src/Acme/UserBundle/Resources/config/doctrine
+app/console doctrine:mapping:convert --namespace="Acme\FileUploaderBundle" yml
+                                                        src/Acme/FileUploaderBundle/Resources/config/doctrine
+app/console doctrine:mapping:convert --namespace="Acme\UserBundle" yml
+                                                        src/Acme/UserBundle/Resources/config/doctrine
 ```
 
 Step 5. Update the database schema:
