@@ -7,12 +7,11 @@ use QoopLmao\FileUploaderBundle\Event\Event\FilterUploadResponseEvent;
 use QoopLmao\FileUploaderBundle\Event\Event\FormEvent;
 use QoopLmao\FileUploaderBundle\Event\Event\GetFilesUploadResponseEvent;
 use QoopLmao\FileUploaderBundle\Event\Event\GetUploadResponseEvent;
-use QoopLmao\FileUploaderBundle\Event\Event\UploadEvent;
 use QoopLmao\FileUploaderBundle\QoopLmaoFileUploaderEvents;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UploadController extends ContainerAware
 {
@@ -37,17 +36,27 @@ class UploadController extends ContainerAware
     {
         /** @var $uploadManager \QoopLmao\FileUploaderBundle\Model\UploadManager */
         $uploadManager = $this->container->get('qoop_lmao_file_uploader.upload.manager');
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcher */
+        $dispatcher = $this->container->get('event_dispatcher');
 
-        $uploads = $uploadManager->findAllUploads();
+        $event = new GetUploadResponseEvent($uploadManager->createUpload(), $request);
+        $dispatcher->dispatch(QoopLmaoFileUploaderEvents::LIST_INITIALIZE, $event);
 
-        $route_reg = $request->get('route_reg') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload');
-        $route_json = $request->get('route_json') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload_json');
+        if (null === $response = $event->getResponse())
+        {
+            $uploads = $uploadManager->findAllUploads();
 
-        return $this->container->get('templating')->renderResponse('QoopLmaoFileUploaderBundle:Upload:list.html.twig', array(
-            'files' => $uploads,
-            'route_reg' => $route_reg,
-            'route_json' => $route_json,
-        ));
+            $route_reg = $request->get('route_reg') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload');
+            $route_json = $request->get('route_json') ?: $this->container->get('router')->generate('qoop_lmao_file_uploader_upload_json');
+
+            $response = $this->container->get('templating')->renderResponse('QoopLmaoFileUploaderBundle:Upload:list.html.twig', array(
+                'files' => $uploads,
+                'route_reg' => $route_reg,
+                'route_json' => $route_json,
+            ));
+        }
+
+        return $response;
     }
 
     public function uploadAction(Request $request)
