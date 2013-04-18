@@ -24,4 +24,9 @@ class QoopLmaoFileUploaderEvents
 
     const DOWNLOAD_COMPLETED = 'qoop_lmao_file_uploader.download.completed';
 
+    const LIST_INITIALIZE = 'qoop_lmao_file_uploader.list.initialize';
+
+    const LIST_SUCCESS = 'qoop_lmao_file_uploader.list.success';
+
+    const LIST_COMPLETED = 'qoop_lmao_file_uploader.list.completed';
 }
