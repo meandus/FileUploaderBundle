@@ -6,6 +6,7 @@ use QoopLmao\FileUploaderBundle\Event\Event\FilterUploadResponseEvent;
 use QoopLmao\FileUploaderBundle\Event\Event\FormEvent;
 use QoopLmao\FileUploaderBundle\Event\Event\FilterFilesUploadResponseEvent;
 use QoopLmao\FileUploaderBundle\Event\Event\GetFilesUploadResponseEvent;
+use QoopLmao\FileUploaderBundle\Event\Event\GetUploadResponseEvent;
 use QoopLmao\FileUploaderBundle\Generator\GeneratorAdapter;
 use QoopLmao\FileUploaderBundle\QoopLmaoFileUploaderEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -36,6 +37,9 @@ class JsonUploadResponseListener implements EventSubscriberInterface
             ),
             QoopLmaoFileUploaderEvents::UPLOAD_FAILED => array(
                 array('onFileUploadFailed', 20),
+            ),
+            QoopLmaoFileUploaderEvents::DELETE_INITIALIZE => array(
+                array('onFileDeleteInitialize', 50),
             ),
             QoopLmaoFileUploaderEvents::DELETE_COMPLETED => array(
                 array('onFileDeleteCompleted', 50),
@@ -96,6 +100,19 @@ class JsonUploadResponseListener implements EventSubscriberInterface
         $json = new JsonResponse(0);
 
         $event->setResponse($json);
+    }
+
+    public function onFileDeleteInitialize(GetUploadResponseEvent $event)
+    {
+        $request = $event->getRequest();
+
+        if (!$request->get('json'))
+        {
+            return;
+        }
+
+        $response = new Response();
+        $event->setResponse($response);
     }
 
     public function onFileDeleteCompleted(FilterUploadResponseEvent $event)
