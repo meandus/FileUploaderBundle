@@ -59,6 +59,11 @@ abstract class Upload implements UploadInterface
      */
     protected $dateupdated;
 
+    /**
+     * @var string
+     */
+    private $webroot;
+
     public function __construct()
     {
 
@@ -286,6 +291,19 @@ abstract class Upload implements UploadInterface
     }
 
     /**
+     * Sets internally used webroot
+     *
+     * @param $webroot
+     * @return $this
+     */
+    public function setWebroot($webroot)
+    {
+        $this->webroot = $webroot;
+
+        return $this;
+    }
+
+    /**
      * Get upload directory for uploaded file
      *
      * @return string
@@ -294,7 +312,7 @@ abstract class Upload implements UploadInterface
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../../web'.$this->getUploadDir();
+        return $this->webroot.$this->getUploadDir();
     }
 
     /**
