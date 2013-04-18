@@ -1,4 +1,4 @@
-<form id="fileupload" action="{{ path('qoop_lmao_file_uploader_upload') }}" method="POST" enctype="multipart/form-data">
+<form id="fileupload" action="{{ route_reg }}" method="POST" enctype="multipart/form-data">
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
         <div class="span7">
@@ -91,7 +91,7 @@
             $('#fileupload').fileupload({
                 // Uncomment the following to send cross-domain cookies:
                 //xhrFields: {withCredentials: true},
-                url: '{{ path('qoop_lmao_file_uploader_upload_json') }}',
+                url: '{{ route_json }}',
                 previewMaxWidth: 80,
                 previewMaxHeight: 30,
                 limitConcurrentUploads: 5
