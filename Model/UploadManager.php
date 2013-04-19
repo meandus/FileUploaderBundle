@@ -119,4 +119,9 @@ class UploadManager implements UploadManagerInterface
 
         return $this->createUpload();
     }
+
+    public function findAllUploadsByUser(UserInterface $user, $orderby = null, $order = null)
+    {
+        return $this->repository->findBy(array('user' => $user->getId()), $orderby, $order);
+    }
 }
